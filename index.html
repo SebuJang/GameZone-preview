@@ -13,6 +13,21 @@
     <link rel="apple-touch-icon" href="./icon-192.png" />
     <link rel="icon" href="./icon-192.png" />
     <style>
+      /*
+       * 2048 보드 위에서만 브라우저의 패닝(스크롤)을 끈다.
+       *
+       * 보드는 TouchableOpacity 의 onPressIn/onPressOut 으로 시작·끝 좌표만 읽어
+       * 스와이프를 판정한다(Game2048Board.tsx). PanResponder 가 아니라서 브라우저에
+       * "이 제스처는 앱이 쓴다"고 알릴 방법이 없고, 그대로 두면 위/아래 드래그를
+       * 브라우저가 스크롤로 가로채며 pointercancel 을 던진다 — onPressOut 이 오지
+       * 않아 위·아래 스와이프가 통째로 죽는다.
+       *
+       * 문서 스크롤을 통째로 막는 방법은 쓰면 안 된다. 이 앱의 게임 목록은 자체
+       * 스크롤 컨테이너가 아니라 문서 스크롤에 의존하므로(콘텐츠 1485px), 막으면
+       * 아래쪽 게임 카드에 닿을 수 없게 된다.
+       */
+      [data-testid="game-2048-board"] { touch-action: none; }
+
       html, body, #root { height: 100%; margin: 0; }
       body { background: #fff; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
       /* 폰에서는 화면을 꽉 채우고, 넓은 화면에서만 기기 폭으로 가둔다 */
@@ -21,11 +36,11 @@
         #root { width: 402px; margin: 0 auto; box-shadow: 0 0 0 1px #ddd; }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-CC2xsqcE.js"></script>
+    <script type="module" crossorigin src="./assets/index-CUsV1Ofh.js"></script>
   </head>
   <body>
     <div id="root"></div>
     <!-- 폰에서 어느 버전을 만지고 있는지 바로 알 수 있게. deploy.sh 가 채운다. -->
-    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">0b98e83 · 2026-09-22 01:52</div>
+    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">322dc49 · 2026-09-22 02:09</div>
   </body>
 </html>
