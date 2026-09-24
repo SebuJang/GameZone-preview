@@ -2,8 +2,8 @@
 
 `harness/web` 빌드 결과물입니다. 소스는 비공개 저장소에 있습니다.
 
-- 빌드 소스 커밋: `9015704` — chore(harness): restore the H025 drive artifact to all five games
-- 배포 시각: 2026-09-24 22:51
+- 빌드 소스 커밋: `f343fe7` — refactor(ui): one definition for the choice controls, not four copies
+- 배포 시각: 2026-09-24 23:01
 
 폰에서 Pages URL 을 열고 '홈 화면에 추가' 하면 앱처럼 실행됩니다.
 react-native-web 빌드라 iOS/Android 네이티브 빌드와는 터치 제스처·이모지 렌더링·
