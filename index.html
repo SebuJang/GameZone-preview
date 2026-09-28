@@ -13,6 +13,31 @@
     <meta name="apple-mobile-web-app-title" content="GameZone" />
     <link rel="apple-touch-icon" href="./icon-192.png" />
     <link rel="icon" href="./icon-192.png" />
+    <script>
+      /*
+       * 엔트리 스크립트를 못 받으면 화면이 하얗게 남는다 — 사용자에겐 "아무것도
+       * 안 나온다" 로 보이고, 설치된 PWA 에는 주소창이 없어 손쓸 방법도 없다.
+       * 그럴 때 캐시를 우회해 한 번 다시 받는다. 근본 원인(배포마다 바뀌는 번들
+       * 이름)은 vite 설정에서 막았고, 이건 그래도 새는 경우를 위한 그물이다.
+       *
+       * 30초 안에 두 번은 하지 않는다. 서버가 정말 죽었을 때 새로고침 무한 루프에
+       * 빠지는 것이 하얀 화면보다 나쁘다.
+       */
+      addEventListener(
+        'error',
+        function (e) {
+          var t = e.target;
+          if (!t || t.tagName !== 'SCRIPT') return;
+          var now = Date.now();
+          try {
+            if (now - (+sessionStorage.getItem('gz-heal') || 0) < 30000) return;
+            sessionStorage.setItem('gz-heal', String(now));
+          } catch (_) {}
+          location.replace(location.pathname + '?r=' + now + location.hash);
+        },
+        true,
+      );
+    </script>
     <style>
       /*
        * 2048 보드 위에서만 브라우저의 패닝(스크롤)을 끈다.
@@ -77,12 +102,12 @@
         #root { width: 402px; margin: 0 auto; box-shadow: 0 0 0 1px #ddd; }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-Dd-Cp_Ij.js"></script>
+    <script type="module" crossorigin src="./assets/index.js?v=0633f98"></script>
     <link rel="modulepreload" crossorigin href="./assets/Icon-j47kXS6n.js">
   </head>
   <body>
     <div id="root"></div>
     <!-- 폰에서 어느 버전을 만지고 있는지 바로 알 수 있게. deploy.sh 가 채운다. -->
-    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">4f6da26 · 2026-09-29 00:58</div>
+    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">0633f98 · 2026-09-29 01:28</div>
   </body>
 </html>
