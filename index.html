@@ -32,6 +32,25 @@
 
       html, body, #root { height: 100%; margin: 0; }
       /*
+       * 문서를 아예 못 움직이게 못 박는다 — iOS 의 고무줄(러버밴드) 제거.
+       *
+       * 빈 곳을 위아래로 끌면 스크롤은 안 되는데 화면 전체가 들렸다 돌아온다.
+       * 스크롤이 아니라 **문서 자체의 바운스**라서 `overscroll-behavior: none`
+       * 으로는 안 잡힌다 — iOS Safari 는 그 속성을 문서 루트의 바운스에는
+       * 적용하지 않는다. 확실히 막는 방법은 `position: fixed` 로 문서를 뷰포트에
+       * 박아, 움직일 여지 자체를 없애는 것이다.
+       *
+       * 예전엔 이렇게 못 했다. 게임 목록이 문서 스크롤에 기대고 있어서 막으면
+       * 아래쪽 카드에 닿을 수 없었다. 지금은 `#root { display: flex }` 로 루트가
+       * 뷰포트에 묶여 목록이 FlatList 안에서 스크롤되므로, 문서 스크롤은 아무도
+       * 쓰지 않는다 — 그래서 이제 잠글 수 있다.
+       *
+       * `overscroll-behavior` 도 html 까지 올린다. iOS 밖(안드로이드 Chrome)에서는
+       * 이 속성이 먹고, 안쪽 스크롤이 끝에 닿았을 때 문서로 번지는 것을 막는다.
+       */
+      html, body { overscroll-behavior: none; }
+      body { position: fixed; top: 0; left: 0; right: 0; bottom: 0; overflow: hidden; }
+      /*
        * `#root` 를 flex 컨테이너로 만든다 — 한 줄이지만 화면이 넘치느냐 마느냐를
        * 여기서 가른다.
        *
@@ -51,7 +70,7 @@
        */
       #root { display: flex; flex-direction: column; }
       /* 배경은 chrome-sync.ts 가 앱 색으로 덮어쓴다 — 여기 값은 첫 페인트용이다. */
-      body { background: #fff; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
+      body { background: #fff; -webkit-tap-highlight-color: transparent; }
       /* 폰에서는 화면을 꽉 채우고, 넓은 화면에서만 기기 폭으로 가둔다 */
       #root { width: 100%; }
       @media (min-width: 520px) {
@@ -64,6 +83,6 @@
   <body>
     <div id="root"></div>
     <!-- 폰에서 어느 버전을 만지고 있는지 바로 알 수 있게. deploy.sh 가 채운다. -->
-    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">630fa49 · 2026-09-29 00:34</div>
+    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">719e275 · 2026-09-29 00:48</div>
   </body>
 </html>
