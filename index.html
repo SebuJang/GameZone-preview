@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
     <title>GameZone</title>
-    <meta name="theme-color" content="#007AFF" />
+    <!-- 초기값만. 실제 색은 chrome-sync.ts 가 앱이 칠한 배경에서 읽어 덮어쓴다. -->
+    <meta name="theme-color" content="#FFFFFF" />
     <link rel="manifest" href="./manifest.webmanifest" />
     <!-- iOS 는 manifest 를 거의 안 보고 이 메타들을 본다 -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -29,6 +30,7 @@
       [data-testid="game-2048-board"] { touch-action: none; }
 
       html, body, #root { height: 100%; margin: 0; }
+      /* 배경은 chrome-sync.ts 가 앱 색으로 덮어쓴다 — 여기 값은 첫 페인트용이다. */
       body { background: #fff; overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
       /* 폰에서는 화면을 꽉 채우고, 넓은 화면에서만 기기 폭으로 가둔다 */
       #root { width: 100%; }
@@ -36,12 +38,12 @@
         #root { width: 402px; margin: 0 auto; box-shadow: 0 0 0 1px #ddd; }
       }
     </style>
-    <script type="module" crossorigin src="./assets/index-D53MmZ24.js"></script>
+    <script type="module" crossorigin src="./assets/index-CdMgdvsQ.js"></script>
     <link rel="modulepreload" crossorigin href="./assets/Icon-j47kXS6n.js">
   </head>
   <body>
     <div id="root"></div>
     <!-- 폰에서 어느 버전을 만지고 있는지 바로 알 수 있게. deploy.sh 가 채운다. -->
-    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">66bbf30 · 2026-09-28 05:51</div>
+    <div id="build-stamp" style="position:fixed;bottom:2px;right:5px;z-index:9999;pointer-events:none;font:10px/1 -apple-system,system-ui,sans-serif;color:#bbb">f5b5bd4 · 2026-09-29 00:15</div>
   </body>
 </html>
