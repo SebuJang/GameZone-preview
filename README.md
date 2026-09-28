@@ -2,8 +2,8 @@
 
 `harness/web` 빌드 결과물입니다. 소스는 비공개 저장소에 있습니다.
 
-- 빌드 소스 커밋: `f5b5bd4` — fix(pwa): match the status bar to the theme, and fit the boards on screen
-- 배포 시각: 2026-09-29 00:15
+- 빌드 소스 커밋: `630fa49` — fix(layout): 판 크기를 실측 상수에서 실제 남은 공간으로 바꾼다
+- 배포 시각: 2026-09-29 00:34
 
 폰에서 Pages URL 을 열고 '홈 화면에 추가' 하면 앱처럼 실행됩니다.
 react-native-web 빌드라 iOS/Android 네이티브 빌드와는 터치 제스처·이모지 렌더링·
